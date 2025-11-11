@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Interactiva: Static Typing en Python</title>
+    <style>
+        /* === ESTILOS GLOBALES Y DE ESCRITORIO === */
+        body {
+            font-family: Arial, sans-serif; background-color: #f0f0f0; margin: 0;
+            padding: 40px; display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; box-sizing: border-box; transition: padding 0.3s ease;
+        }
+
+        .slideshow-container { position: relative; width: 90%; max-width: 960px; }
+        
+        .slide {
+            display: none; background-color: #fff; border: 1px solid #ccc;
+            height: 540px; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            flex-direction: column; justify-content: center; position: relative;
+            box-sizing: border-box;
+        }
+
+        .fade { animation-name: fade; animation-duration: 0.5s; }
+        @keyframes fade { from {opacity: .4} to {opacity: 1} }
+
+        .prev, .next {
+            cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
+            width: 50px; height: 50px; background-color: #cccccc; color: #333;
+            border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex; justify-content: center; align-items: center;
+            font-weight: bold; font-size: 24px; transition: all 0.3s ease;
+            user-select: none; z-index: 10;
+        }
+
+        .prev { left: -70px; }
+        .next { right: -70px; }
+        .prev:hover, .next:hover { background-color: #aaaaaa; }
+
+        .slide h1 { font-size: 3.5em; text-align: center; border-bottom: 4px solid #FFC425; padding-bottom: 20px; color: #005A9C; }
+        .slide h2 { font-size: 2.8em; margin-top: 0; margin-bottom: 30px; text-align: center; color: #005A9C; }
+        .single-content { text-align: center; }
+        .single-content p { font-size: 1.5em; color: #444; }
+        .single-content pre { font-size: 1.2em; display: inline-block; text-align: left; max-width: 100%; }
+        pre { background-color: #2d3636; color: #fff; padding: 15px; border-radius: 5px; font-size: 1.1em; white-space: pre-wrap; }
+        .footer { position: absolute; bottom: 20px; right: 40px; font-size: 1em; color: #888; }
+
+        /* === MEDIA QUERIES === */
+        @media screen and (max-width: 768px) {
+            body { padding: 15px; }
+            .slideshow-container { width: 100%; padding-bottom: 75px; }
+            .slide { height: auto; min-height: 75vh; padding: 20px 25px; }
+            .prev, .next { top: auto; bottom: 15px; width: 45px; height: 45px; }
+            .prev { left: 50%; transform: translateX(-110%); }
+            .next { left: 50%; transform: translateX(10%); right: auto; }
+            .slide h1 { font-size: 2.2em; }
+            .slide h2 { font-size: 1.8em; }
+            .single-content p { font-size: 1.1em; }
+            .single-content pre { font-size: 1em; }
+            .footer { font-size: 0.8em; right: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slideshow-container">
+        
+        <div class="slide fade">
+            <h1>Python Moderno</h1>
+            <h2 style="color:#333; border:none;">Static Typing (Type Hints)</h2>
+            <div class="footer">1 / 17</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>El Comportamiento Normal: Tipado Dinámico</h2>
+            <div class="single-content"><p>Por naturaleza, Python es de tipado dinámico: una variable puede cambiar de tipo en cualquier momento.</p><pre><code>variable = 10
+print(type(variable)) # <class 'int'>
+
+variable = "Hola"
+print(type(variable)) # <class 'str'></code></pre></div>
+            <div class="footer">2 / 17</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>¿Qué es el Tipado Estático?</h2>
+            <div class="single-content"><p>La práctica de añadir "pistas" de tipo (Type Hints) a variables y funciones. Es <strong>opcional</strong> y no cambia el comportamiento del programa.</p></div>
+            <div class="footer">3 / 17</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Beneficio 1: Claridad</h2>
+            <div class="single-content"><p>El código se vuelve autodocumentado. Es mucho más fácil entender qué tipo de datos espera una función.</p><pre><code># ¿Qué es 'datos'? ¿Una lista, un diccionario?
+def procesar(datos):
+    pass
+
+# Mucho más claro: espera un diccionario de string a entero
+def procesar(datos: dict[str, int]):
+    pass</code></pre></div>
+            <div class="footer">4 / 17</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Beneficio 2: Detección de Errores</h2>
+            <div class="single-content"><p>Herramientas externas pueden analizar tu código y encontrar errores de tipo antes de que lo ejecutes.</p></div>
+            <div class="footer">5 / 17</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Beneficio 3: Mejor Autocompletado</h2>
+            <div class="single-content"><p>Tu editor de código (IDE) usará las pistas de tipo para ofrecerte mejores sugerencias y autocompletado, aumentando tu productividad.</p></div>
+            <div class="footer">6 / 17</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Sintaxis: Variables</h2>
+            <div class="single-content"><p>Se usa <code>: tipo</code> después del nombre de la variable.</p><pre><code>nombre: str = "Ana"
+edad: int = 30
+es_estudiante: bool = True</code></pre></div>
+            <div class="footer">7 / 17</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Sintaxis: Funciones</h2>
+            <div class="single-content"><p>Se anotan los argumentos con <code>: tipo</code> y el valor de retorno con <code>-> tipo</code>.</p><pre><code>def saludar(nombre: str) -> str:
+    return f"Hola, {nombre}"
+
+def sumar(a: int, b: int) -> int:
+    return a + b</code></pre></div>
+            <div class="footer">8 / 17</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Importante: Son Solo "Pistas"</h2>
+            <div class="single-content"><p>El intérprete de Python ignora estas anotaciones. El código se ejecuta igual. Su propósito es para herramientas de análisis.</p><pre><code>def sumar(a: int, b: int) -> int:
+    return a + b
+
+# Python no se queja y ejecuta esto sin error
+resultado = sumar("hola", "mundo")
+print(resultado) # 'holamundo'</code></pre></div>
+            <div class="footer">9 / 17</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>El Verificador: <code>mypy</code></h2>
+            <div class="single-content"><p>`mypy` es la herramienta estándar para el análisis de tipos. Se instala con `pip` y se ejecuta desde la terminal.</p><pre><code>pip install mypy
+mypy mi_archivo.py</code></pre></div>
+            <div class="footer">10 / 17</div>
+        </div>
+
+        <div class="slide fade">
+            <h2><code>mypy</code> en Acción</h2>
+            <div class="single-content"><p>Si ejecutamos `mypy` sobre el ejemplo anterior, nos avisará del error.</p><pre><code># En el archivo mi_archivo.py
+sumar("hola", "mundo")
+
+# Salida de mypy:
+# mi_archivo.py: error: Argument 1 to "sumar" has
+# incompatible type "str"; expected "int"</code></pre></div>
+            <div class="footer">11 / 17</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Tipos Complejos: Módulo <code>typing</code></h2>
+            <div class="single-content"><p>Para tipos más complejos como listas de strings o diccionarios con claves y valores específicos, se usa el módulo `typing`.</p></div>
+            <div class="footer">12 / 17</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2><code>List</code> y <code>Dict</code></h2>
+            <div class="single-content"><p>Para especificar el tipo de los elementos dentro de una colección.</p><pre><code>from typing import List, Dict
+
+nombres: List[str] = ["Ana", "Luis"]
+puntuaciones: Dict[str, int] = {"Ana": 95, "Luis": 88}</code></pre></div>
+            <div class="footer">13 / 17</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2><code>Tuple</code></h2>
+            <div class="single-content"><p>Permite especificar el tipo de cada elemento de una tupla de tamaño fijo.</p><pre><code>from typing import Tuple
+
+coordenada: Tuple[int, int] = (10, 20)
+persona: Tuple[str, int, bool] = ("Ana", 30, True)</code></pre></div>
+            <div class="footer">14 / 17</div>
+        </div>
+
+        <div class="slide fade">
+            <h2><code>Optional</code></h2>
+            <div class="single-content"><p>Indica que una variable puede ser de un tipo específico o puede ser `None`.</p><pre><code>from typing import Optional
+
+def buscar_usuario(id: int) -> Optional[str]:
+    if id == 1:
+        return "Usuario encontrado"
+    else:
+        return None</code></pre></div>
+            <div class="footer">15 / 17</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2><code>Union</code></h2>
+            <div class="single-content"><p>Indica que una variable puede ser de uno de varios tipos posibles.</p><pre><code>from typing import Union
+
+# Un ID puede ser un número o un string
+def procesar_id(id_usuario: Union[int, str]):
+    pass</code></pre></div>
+            <div class="footer">16 / 17</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Conclusión</h2>
+            <div class="single-content"><p>El tipado estático es una práctica moderna en Python que mejora drásticamente la robustez, legibilidad y mantenibilidad del código, especialmente en proyectos grandes y en equipo.</p></div>
+            <div class="footer">17 / 17</div>
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            if (n > slides.length) { slideIndex = 1 } 
+            if (n < 1) { slideIndex = slides.length }
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            
+            slides[slideIndex - 1].style.display = "flex";
+        }
+    </script>
+
+</body>
+</html>
